@@ -1,25 +1,28 @@
 /*  Pago con tarjeta*/
-let precioFinal=prompt("ingrese precio del producto");
+function precioFinal(){
+    let precio= prompt("ingrese precio del producto");
+}
+
 let tarjetaCredito= prompt("1-santander visa, 2-santander American Express, 3-Visa Banco Nación, 4-otra, 5-Para Finalizar");
-let precioCuota=0;
+
 
 while(tarjetaCredito=!'0'){
     switch(tarjetaCredito){
     case '1':
         alert("Tenés 3 cuotas sin interes");
-        precioCuota=precioFinal/3
+        function precioCuota()={precioFinal(precio)/3};
         break;
     case '2':
         alert("Tenés 6 cuotas sin interes");
-        precioCuota=precioFinal/6
+        let precioCuota=precioFinal()/6
         break;
     case '3':
         alert("Tenés 3 cuotas sin interes");
-        precioCuota=precioFinal/3
+        precioCuota=precioFinal()/3
         break;
     case '4':
         alert("Las cuotas tiene un 10% de recargo");
-        precioCuota=precioFinal*1.1
+        precioCuota=precioFinal()*1.1
         break;
 }
 let tarjetaCredito= prompt("1-santander visa, 2-santander American Express, 3-Visa Banco Nación, 4-otra, 5-Para Finalizar");
