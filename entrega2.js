@@ -15,20 +15,20 @@ for (const producto of productos) {
 console.table(productos);
 /* funcion para filtrar los productos por tipo */
 function filtrarPorTipo(tipoProd){
-    const filtrado = productos.filter((producto)=>producto.tipo = tipoProd);
-    console.log(filtrado);
+    const filtrado = productos.filter((producto)=>producto.tipo === tipoProd);
+    return(filtrado);
 }
 
 /* usuario ingresa input */
 let tipoUsu = prompt('Ingrese el tipo de suplemento (0-salir)');
 
-while(tipoUsu =! 0){
-    if((tipoUsu='') || (typeof tipoUsu !== 'string')){
+while (parseInt(tipoUsu ==! 0)){
+    if((tipoUsu=='') || (typeof tipoUsu !== 'string')){
         alert('Completar campo o tipo de dato invalido');
     }
     else{
         const prodsWithFil= filtrarPorTipo(tipoUsu);
         console.table(prodsWithFil);
     }
-    tipoUsu = prompt('Ingrese el tipo de suplemento (0-salir)');
+    let tipoUsu = prompt('Ingrese el tipo de suplemento (0-salir)');
 }
