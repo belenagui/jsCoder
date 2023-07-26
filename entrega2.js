@@ -13,22 +13,28 @@ for (const producto of productos) {
 }
 
 console.table(productos);
-/* funcion para filtrar los productos por tipo */
-function filtrarPorTipo(tipoProd){
-    const filtrado = productos.filter((producto)=>producto.tipo === tipoProd);
-    return(filtrado);
+function filtrarPorTipo(tipoProd) {
+    const tipoUsuario = tipoProd.toLowerCase();
+    const filtrado = productos.filter(producto => producto.tipo.toLowerCase() === tipoUsuario);
+    return filtrado;
 }
 
-/* usuario ingresa input */
+function mostrarProductosFiltrados(tipoUsu) {
+    if (tipoUsu === '' || typeof tipoUsu !== 'string') {
+        alert('Completar campo o tipo de dato inválido');
+    } else {
+        const prodsWithFil = filtrarPorTipo(tipoUsu);
+        if (prodsWithFil.length > 0) {
+            console.table(prodsWithFil);
+        } else {
+            alert('No se encontraron productos para el tipo ingresado.');
+        }
+    }
+}
+
 let tipoUsu = prompt('Ingrese el tipo de suplemento (0-salir)');
 
-while (parseInt(tipoUsu ==! 0)){
-    if((tipoUsu=='') || (typeof tipoUsu !== 'string')){
-        alert('Completar campo o tipo de dato invalido');
-    }
-    else{
-        const prodsWithFil= filtrarPorTipo(tipoUsu);
-        console.table(prodsWithFil);
-    }
-    let tipoUsu = prompt('Ingrese el tipo de suplemento (0-salir)');
+while (parseInt(tipoUsu) !== 0) {
+    mostrarProductosFiltrados(tipoUsu);
+    tipoUsu = prompt('Ingrese el tipo de suplemento (0-salir)');
 }
