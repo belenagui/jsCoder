@@ -10,7 +10,7 @@ while(tarjetaCredito=!'0'){
     switch(tarjetaCredito){
     case '1':
         alert("Tenés 3 cuotas sin interes");
-        function precioCuota()={precioFinal(precio)/3};
+        function precioCuota={precioFinal()/3};
         break;
     case '2':
         alert("Tenés 6 cuotas sin interes");
