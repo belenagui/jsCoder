@@ -1,3 +1,19 @@
+/* constructor de objetos con clase  */
+class producto{
+    constructor(id,imagen,marca,tipo,descripcion,precio){
+    this.id=id;
+    this.imagen=imagen;
+    this.marca=marca;
+    this.tipo=tipo;
+    this.descripcion=descripcion;
+    this.precio=precio;
+}
+}
+const supleNew = new producto('10','./img/rippedEna.webp', 'Ena', 'Quemadores', 'Ripped Ena Sport Quemador De Grasas Descenso De Peso 60 Cap.', '$2340');
+/* Lo agrego al array de productos */
+productos.push(supleNew);
+
+
 let prodCards = document.getElementById('cards');
 for (const producto of productos) {
     prodCards.innerHTML += `
