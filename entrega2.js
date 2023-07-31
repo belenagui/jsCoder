@@ -10,6 +10,8 @@ class producto{
 }
 }
 const supleNew = new producto('10','./img/rippedEna.webp', 'Ena', 'Quemadores', 'Ripped Ena Sport Quemador De Grasas Descenso De Peso 60 Cap.', '$2340');
+/* puedo seguir insertando nuevos produsctos aquí */
+
 /* Lo agrego al array de productos */
 productos.push(supleNew);
 
