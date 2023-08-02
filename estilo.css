@@ -12,7 +12,7 @@ html {
 }
 
 body{
-    background-color: black;
+    background-color: rgba(136, 131, 131, 0.416);
 }
 /* navbar */
 
@@ -71,4 +71,14 @@ wrap>h1:after{
     background: black;
     margin: 20px 0;
 
+}
+
+.botonFiltro{
+    margin: 0 30px; /* Margen entre botones */
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
