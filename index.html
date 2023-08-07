@@ -5,12 +5,13 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestros Productos</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <title>Nuestros Productos</title>
   <link rel="stylesheet" type="text/css" href="./estilo.css">
+
 </head>
 
 <body>
@@ -80,37 +81,89 @@
   <h1> Nuestros Productos </h1>
   <div class="store-wrapper">
     <div class="category_list">
-      <a href="#" id="categoryitem" category="all">Todos</a>
-      <a href="#" id="categoryitem" category="prote">Proteinas</a>
-      <a href="#" id="categoryitem" category="creatinas">Creatinas</a>
-      <a href="#" id="categoryitem" category="multi">Multivitaminicos</a>
-      <a href="#" id="categoryitem" category="ganadores">Ganadores de Masa</a>
-      <a href="#" id="categoryitem" category="pre">Pre entreno</a>
-      <a href="#" id="categoryitem" category="quemadores">Quemadores</a>
+      <li>
+        <button id="todos" class="botonFiltro"> Todos </button>
+      </li>
+      <li>
+        <button id="proteinas" class="botonFiltro"> Proteinas </button>
+      </li>
+      <li>
+        <button id="creatinas" class="botonFiltro"> Creatinas </button>
+      </li>
+      <li>
+        <button id="Multivitaminicos" class="botonFiltro"> Multivitaminicos </button>
+      </li>
+      <li>
+        <button id="Ganadores de Masa" class="botonFiltro"> Ganadores de Masa </button>
+      </li>
+      <li>
+        <button id="Pre entreno" class="botonFiltro"> Pre entreno </button>
+      </li>
+      <li>
+        <button id="Quemadores" class="botonFiltro"> Quemadores </button>
+      </li>
     </div>
     <article id="cards" class="row">
     <!-- cartas de los productos -->
     </article>
   </div>
   </div>
-  <section>
-    <h4> Carrito de Compras </h4>
-    <table class="table table-striped">
-     <thead>
-      <tr>
-        <th>Producto</th>
-        <th>Precio</th>
-      </tr>
-    </thead>
-    <tbody id="bodytable">
-      <!-- tabla del carro -->
-    </tbody>
-    </table>
-    <h4 id="total">Total a pagar: $</h4>
-  </section>
-  <!-- mis scripts -->
+
+  <!-- carrito de compras  -->
+  <div class="carrito" id="carrito">
+    <div class="header-carrito">
+        <h2>Tu Carrito</h2>
+    </div>
+
+    <div class="carrito-items">
+
+        <div class="carrito-item">
+            <img src="img/rippedEna.webp" width="80px" alt="">
+            <div class="carrito-item-detalles">
+                <span class="carrito-item-titulo">Box Engasse</span>
+                <div class="selector-cantidad">
+                    <i class="fa-solid fa-minus restar-cantidad"></i>
+                    <input type="text" value="1" class="carrito-item-cantidad" disabled>
+                    <i class="fa-solid fa-plus sumar-cantidad"></i>
+                </div>
+                <span class="carrito-item-precio">$15.000,00</span>
+            </div>
+           <span class="btn-eliminar">
+                <i class="fa-solid fa-trash"></i>
+           </span>
+        </div>
+        <div class="carrito-item">
+            <img src="./img/rippedPreEntreno.jpeg" width="80px" alt="">
+            <div class="carrito-item-detalles">
+                <span class="carrito-item-titulo">Skin Glam</span>
+                <div class="selector-cantidad">
+                    <i class="fa-solid fa-minus restar-cantidad"></i>
+                    <input type="text" value="3" class="carrito-item-cantidad" disabled>
+                    <i class="fa-solid fa-plus sumar-cantidad"></i>
+                </div>
+                <span class="carrito-item-precio">$18.000,00</span>
+            </div>
+           <button class="btn-eliminar">
+                <i class="fa-solid fa-trash"></i>
+           </button>
+        </div>
+    </div>
+    <div class="carrito-total">
+        <div class="fila">
+            <strong>Tu Total</strong>
+            <span class="carrito-precio-total">
+                $120.000,00
+            </span>
+        </div>
+        <button class="btn-pagar">Pagar <i class="fa-solid fa-bag-shopping"></i> </button>
+    </div>
+</div>
+
+<!-- mis scripts -->
   <script src="productos.js"></script>
-  <script src="entrega1.js"></script>
   <script src="entrega2.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 </body>
 </html>
