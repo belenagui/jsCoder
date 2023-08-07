@@ -15,6 +15,22 @@ const supleNew = new producto('10','./img/rippedEna.webp', 'Ena', 'Quemadores', 
 /* Lo agrego al array de productos */
 productos.push(supleNew);
 
+<<<<<<< HEAD
+=======
+let botonesCategorias= document.getElementById('btnCategory');
+
+botonesCategorias.forEach(boton => {
+    boton.addEventListener("click",(e)=> {
+        if(e.currentTarget.id !="todos"){
+            const filtrado = productos.filter(producto => producto.tipo.toLowerCase() === e.currentTarget.id);
+        }
+        else{
+            cargarProductos(productos);
+        }
+    })
+});
+console.log(filtrado);
+>>>>>>> 86b06f0cb907d3b776d7160f88bdf41e27c8dc44
 let prodCards = document.getElementById('cards');
 
 function cargarProductos(productosGrales){
@@ -27,7 +43,11 @@ for (const producto of productos) {
        <div class="card-body">
          <h5 class="card-title">${producto.descripcion}</h5>
         <p class="card-text"> $ ${producto.precio}</p>
+<<<<<<< HEAD
         <button id=${producto.id} class="btn btn-primary compra">Comprar</button>
+=======
+        <a href="#" class="btn btn-primary">Comprar</a>
+>>>>>>> 86b06f0cb907d3b776d7160f88bdf41e27c8dc44
     </div>
     </div>
     `;
