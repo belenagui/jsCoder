@@ -12,7 +12,7 @@ html {
 }
 
 body{
-    background-color: rgba(136, 131, 131, 0.416);
+    background-color: rgba(245, 244, 244, 0.902);
 }
 /* navbar */
 
@@ -43,6 +43,7 @@ nav,
 }
 /* FIN NAVBAR */
 .category_list{
+    display: flex;
     text-decoration: none;
     text-align: center;
     margin: 30px;
@@ -54,16 +55,23 @@ a{
 }
 
 .wrap{
-    max-width: 1100px;
-    width: 90%;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
     margin: auto;
+    object-fit: contain;
     background-color: black;
 }
+
 h1{
 color:whitesmoke;
 text-align: center;
-margin:40px
+margin:30px;
+padding:40px;
 }
+
 wrap>h1:after{
     content: '';
     width: 100%;
@@ -74,7 +82,7 @@ wrap>h1:after{
 }
 
 .botonFiltro{
-    margin: 0 30px; /* Margen entre botones */
+    margin: 0px 30px; /* Margen entre botones */
     padding: 8px 16px;
     background-color: #3498db;
     color: #ffffff;
@@ -82,3 +90,7 @@ wrap>h1:after{
     border-radius: 4px;
     cursor: pointer;
 }
+.botonFiltro:hover{
+    background-color: #1d81c3;
+}
+

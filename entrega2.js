@@ -9,13 +9,25 @@ class producto{
     this.precio=precio;
 }
 }
-const supleNew = new producto('10','./img/rippedEna.webp', 'Ena', 'Quemadores', 'Ripped Ena Sport Quemador De Grasas Descenso De Peso 60 Cap.', '$2340');
+const supleNew = new producto('10','./img/rippedEna.webp', 'Ena', 'Quemadores', 'Ripped Ena Sport Quemador De Grasas Descenso De Peso 60 Cap.', '2340');
 /* puedo seguir insertando nuevos productos aquí */
 
 /* Lo agrego al array de productos */
 productos.push(supleNew);
 
-const botonesCategorias= document.getElementById('')
+let botonesCategorias= document.getElementById('btnCategory');
+
+botonesCategorias.forEach(boton => {
+    boton.addEventListener("click",(e)=> {
+        if(e.currentTarget.id !="todos"){
+            const filtrado = productos.filter(producto => producto.tipo.toLowerCase() === e.currentTarget.id);
+        }
+        else{
+            cargarProductos(productos);
+        }
+    })
+});
+console.log(filtrado);
 let prodCards = document.getElementById('cards');
 for (const producto of productos) {
     prodCards.innerHTML += `
@@ -23,7 +35,7 @@ for (const producto of productos) {
        <img src=${producto.imagen} class="card-img-top" alt="card imagen">
        <div class="card-body">
          <h5 class="card-title">${producto.descripcion}</h5>
-        <p class="card-text"> Precio $ ${producto.precio}</p>
+        <p class="card-text"> $ ${producto.precio}</p>
         <a href="#" class="btn btn-primary">Comprar</a>
     </div>
     </div>
