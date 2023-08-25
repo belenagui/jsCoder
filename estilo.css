@@ -93,7 +93,11 @@ wrap>h1:after{
 .botonFiltro:hover{
     background-color: #1d81c3;
 }
-
+article .cards{
+    width: 100%;
+    display: grid;
+    grid-gap: 30px;
+}
 /* seccion carrito */
 .carrito{
     border: 1px solid #666;
@@ -118,7 +122,6 @@ wrap>h1:after{
 .carrito .carrito-item{
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
     position: relative;
     border-bottom: 1px solid #666;
     padding: 20px;
