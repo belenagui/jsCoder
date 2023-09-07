@@ -5,54 +5,69 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nuestros Productos</title>
+  <title>Suplementos Deportivos</title>
   <!-- CSS only -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" type="text/css" scr="./estilo.css">
+  <link rel="stylesheet" type="text/css" href="estilo.css">
 
 </head>
 
 <body>
-  <!-- MENU START  -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <!-- NAV CONTAINER START -->
-    <div class="container-fluid">
-      <a href="" class="navbar-brand text-info fw-semibold fs-4">Suplementos Flav</a>
+  <header>
+    <div class = "container">
+      <!-- navbar -->
+      <nav class = "navbar">
+        <a href = "index.html" class = "navbar-brand">Suplementos Flav</a>
+        <button type = "button" class = "navbar-toggler">
+          <i class = "fas fa-bars"></i>
+        </button>
+        <div class = "navbar-collapse">
+          <ul>
+            <li><a href = "#">Home</a></li>
+            <li><a href = "#">Nuevos Productos</a></li>
+            <li><a href = "#">Blog</a></li>
+            <li><a href = "#">Contacto</a></li>
+          </ul>
+        </div>
 
-      <!-- NAV BUTTON  -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- OFFCANVAS MAIN CONTAINER START -->
-      <section class="offcanvas offcanvas-start" id="menuLateral" tabindex="-1">
-        <div class="offcanvas-header" data-bs-theme="dark">
-          <h5 class="offcanvas-title text-info">Suplementos Flav</h5>
-          <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <!-- OFF CANVAS MENU LINKS  START-->
-        <div class="offcanvas-body d-flex flex-column justify-content-between px-0">
-          <ul class="navbar-nav fs-5 justify-content-evenly">
-            <li class="nav-item p-3 py-md-1">
-              <a href="../index.html" class="nav-link">Inicio</a>
-            </li>
-            <!-- enlaces redes sociales -->
-            <div class="d-lg-none align-self-center py-3">
-              <a href=""><i class="bi bi-whatsapp px-2 text-info fs-2"></i></a>
-              <a href=""><i class="bi bi-instagram px-2 text-info fs-2"></i></a>
-              <a href=""><i class="bi bi-discord px-2 text-info fs-2"></i></a>
-              <a href=""><i class="bi bi-telegram px-2 text-info fs-2"></i></a>
+        <div class = "cart">
+          <button type = "button" id = "cart-btn">
+            <i class = "fas fa-shopping-cart"></i>
+            <span id = "cart-count-info"></span>
+          </button>
+          
+          <div class = "cart-container">
+            <div class = "cart-list">
+              <!-- single item -->
+              <!-- <div class = "cart-item">
+                <img src = "images/armchair.png" alt = "product image">
+                <div class = "cart-item-info">
+                  <h3 class = "cart-item-name">Arm Chair</h3>
+                  <span class = "cart-item-category">Chair</span>
+                  <span class = "cart-item-price">$120.00</span>
+                </div>
+
+                <button type = "button" class = "cart-item-del-btn">
+                  <i class = "fas fa-times"></i>
+                </button>
+              </div> -->
+              <!-- final single item  -->
             </div>
+
+            <div class = "cart-total">
+              <h3>Total: $</h3>
+              <span id = "cart-total-value"></span>
+            </div>
+          </div>
         </div>
-      </section>
-      <!-- OFFCANVAS MAIN CONTAINER END  -->
-    </div>
-  </nav>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-    crossorigin="anonymous"></script>
+      </nav>
+      <!-- final navbar -->
+
+       
 
   <!-- Carrousel-->
   <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
@@ -78,93 +93,72 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-  <div class="wrap">
-  <h1> Nuestros Productos </h1>
-  <div class="store-wrapper">
-    <div class="category_list">
-      <li>
-        <button id="todos" class="botonFiltro"> Todos </button>
-      </li>
-      <li>
-        <button id="proteinas" class="botonFiltro"> Proteinas </button>
-      </li>
-      <li>
-        <button id="creatinas" class="botonFiltro"> Creatinas </button>
-      </li>
-      <li>
-        <button id="Multivitaminicos" class="botonFiltro"> Multivitaminicos </button>
-      </li>
-      <li>
-        <button id="Ganadores de Masa" class="botonFiltro"> Ganadores de Masa </button>
-      </li>
-      <li>
-        <button id="Pre entreno" class="botonFiltro"> Pre entreno </button>
-      </li>
-      <li>
-        <button id="Quemadores" class="botonFiltro"> Quemadores </button>
-      </li>
+
+   <!-- banner -->
+   <div class = "banner">
+    <div class = "banner-content">
+      <h1>Suplementos Deportivos</h1>
+      <p class = "text">Bienvenido a Suplementos Flav! Somos tu fuente confiable de suplementos de alta calidad para mejorar tu salud y bienestar. Nuestra amplia selección de productos y nuestro equipo de expertos están aquí para ayudarte a alcanzar tus metas de manera efectiva. Explora nuestro catálogo y únete a nuestra comunidad de personas comprometidas con un estilo de vida saludable. Tu bienestar es nuestra prioridad, y estamos emocionados de ser parte de tu viaje hacia una vida más saludable y feliz.</p>
+      <div class = "btns">
+        <button type = "button" class = "btn">saber mas</button>
+        <button type = "button" class = "btn">mas info</button>
+      </div>
     </div>
-    <article id="cards" class="row">
-    <!-- cartas de los productos -->
-    </article>
-  </div>
+
+    <div class = "banner-img">
+      <img src = "img/STANUT002033.jpg" alt = "Suplemento image">
+    </div>
   </div>
 
-  <!-- carrito de compras  -->
-  <div class="carrito" id="carrito">
-    <div class="header-carrito">
-        <h2>Tu Carrito</h2>
-    </div>
-
-    <div class="carrito-items">
-
-        <!-- <div class="carrito-item">
-            <img src="img/rippedEna.webp" width="80px" alt="">
-            <div class="carrito-item-detalles">
-                <span class="carrito-item-titulo">Box Engasse</span>
-                <div class="selector-cantidad">
-                    <i class="fa-solid fa-minus restar-cantidad"></i>
-                    <input type="text" value="1" class="carrito-item-cantidad" disabled>
-                    <i class="fa-solid fa-plus sumar-cantidad"></i>
-                </div>
-                <span class="carrito-item-precio">$15.000,00</span>
-            </div>
-           <span class="btn-eliminar">
-                <i class="fa-solid fa-trash"></i>
-           </span>
-        </div>
-        <div class="carrito-item">
-            <img src="./img/rippedPreEntreno.jpeg" width="80px" alt="">
-            <div class="carrito-item-detalles">
-                <span class="carrito-item-titulo">Skin Glam</span>
-                <div class="selector-cantidad">
-                    <i class="fa-solid fa-minus restar-cantidad"></i>
-                    <input type="text" value="3" class="carrito-item-cantidad" disabled>
-                    <i class="fa-solid fa-plus sumar-cantidad"></i>
-                </div>
-                <span class="carrito-item-precio">$18.000,00</span>
-            </div>
-           <button class="btn-eliminar">
-                <i class="fa-solid fa-trash"></i>
-           </button>
-        </div>
-    </div> -->
-    <div class="carrito-total">
-        <div class="fila">
-            <strong>Tu Total</strong>
-            <span class="carrito-precio-total">
-                $120.000,00
-            </span>
-        </div>
-        <button class="btn-pagar">Pagar <i class="fa-solid fa-bag-shopping"></i> </button>
-    </div>
 </div>
+</header>
 
-<!-- mis scripts -->
-  <script src="productos.js"></script>
-  <script src="entrega2.js"></script>
+<!-- final header -->
+
+   <!-- products section  -->
+   <section class = "products">
+    <div class = "container">
+      <h2>Nuestros Productos</h2>
+      <div class = "product-list">
+      </div>
+    </div>
+  </section>
+  <!-- final products section -->
+
+  <!-- footer -->
+  <footer>
+    <div class = "footer-banner">
+      <div class = "container">
+        <h2>Catálogo</h2>
+        <p class = "text">Ofrecemos una amplia gama de suplementos deportivos diseñados para optimizar tu rendimiento y recuperación. Nuestro catálogo incluye proteínas en polvo para el desarrollo muscular, aminoácidos para la energía y resistencia, vitaminas y minerales esenciales para la salud general, así como suplementos específicos para la recuperación y la quema de grasa. Ya sea que seas un atleta experimentado o simplemente busques mantenerte activo, tenemos los suplementos adecuados para tus necesidades.</p>
+        <button type = "button" class = "btn">Ver Más</button>
+      </div>
+    </div>
+
+    <div class = "container">
+      <div class = "social-icons">
+        <a href = "#">
+          <i class = "fab fa-facebook-f"></i>
+        </a>
+        <a href = "#">
+          <i class = "fab fa-twitter"></i>
+        </a>
+        <a href = "#">
+          <i class = "fab fa-instagram"></i>
+        </a>
+        <a href = "#">
+          <i class = "fab fa-pinterest"></i>
+        </a>
+        <a href = "#">
+          <i class = "fab fa-linkedin"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <!-- final footer -->
+  
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
+  <script src="entrega2.js"></script>
 </body>
 </html>
+

@@ -1,236 +1,183 @@
-//Variable que mantiene el estado visible del carrito
-var carritoVisible = false;
 
+// variables y constantes
+const cartContainer = document.querySelector('.cart-container');
+const productList = document.querySelector('.product-list');
+const cartList = document.querySelector('.cart-list');
+const cartTotalValue = document.getElementById('cart-total-value');
+const cartCountInfo = document.getElementById('cart-count-info');
+let cartItemID = 1;
 
-/* constructor de objetos con clase  */
-class producto{
-    constructor(id,imagen,marca,tipo,descripcion,precio){
-    this.id=id;
-    this.imagen=imagen;
-    this.marca=marca;
-    this.tipo=tipo;
-    this.descripcion=descripcion;
-    this.precio=precio;
-}
-}
-const supleNew = new producto('10','./img/rippedEna.webp', 'Ena', 'Quemadores', 'Ripped Ena Sport Quemador De Grasas Descenso De Peso 60 Cap.', '2340');
-/* puedo seguir insertando nuevos productos aquí */
+eventListeners();
 
-/* Lo agrego al array de productos */
-productos.push(supleNew);
+// todos los eventos listeners
+function eventListeners(){
+    window.addEventListener('DOMContentLoaded', () => {
+        loadJSON();
+        loadCart();
+    });
+    // alterna el navbar cuando se hace click
+    document.querySelector('.navbar-toggler').addEventListener('click', () => {
+        document.querySelector('.navbar-collapse').classList.toggle('show-navbar');
+    });
 
-let prodCards = document.getElementById('cards');
+    // mostrar/ocultar contenedor del carrito
+    document.getElementById('cart-btn').addEventListener('click', () => {
+        cartContainer.classList.toggle('show-cart-container');
+    });
 
-function cargarProductos(productosGrales){
-    productosGrales.innerHTML="";
- /* ahora se cargan las cartas */
-for (const producto of productos) {
-    prodCards.innerHTML += `
-    <div class="card col-sm-2 contenedor-items">
-       <img src=${producto.imagen} class="card-img-top" alt="card imagen">
-       <div class="card-body">
-         <h5 class="card-title titulo">${producto.descripcion}</h5>
-        <p class="card-text precio"> $ ${producto.precio}</p>
-        <button id=${producto.id} class="btn btn-primary compra">Comprar</button>
-    </div>
-    </div>
-    `;
-}
-}
-cargarProductos(productos);
+    // agregar al carrito
+    productList.addEventListener('click', purchaseProduct);
 
-if (document.readyState =='loading'){
-    document.addEventListener('DOMContentLoaded, ready')
-} else{
-    ready();
+    // eliminar el carrito
+    cartList.addEventListener('click', deleteProduct);
 }
 
-function ready(){
-    //Agregremos funcionalidad a los botones eliminar del carrito
-var botonesEliminarItem = document.getElementsByClassName('btn-eliminar');
-for(var i=0; i<botonesEliminarItem.length; i++){
-    var button = botonesEliminarItem[i];
-    button.addEventListener('click',eliminarItemCarrito);
-}
-/* agregar funcionalidad al boton de sumar */
-var botonesSumarCantidad = document.getElementsByClassName('sumar-cantidad');
-for(var i=0; i<botonesSumarCantidad.length; i++){
-    var button = botonesSumarCantidad[i];
-    button.addEventListener('click',sumarCantidad);
-}
-/* agregar funcionalidad al boton de restar cantidad */
-var botonesRestarCantidad = document.getElementsByClassName('restar-cantidad');
-for(var i=0; i<botonesRestarCantidad.length; i++){
-    var button = botonesRestarCantidad[i];
-    button.addEventListener('click',restarCantidad);
-}
-/* funcionalidad de botones de agregar al carrito */
-var botonesAgregarAlCarrito = document.getElementsByClassName('compra');
-for(var i=0; i<botonesAgregarAlCarrito.length; i++){
-    var button = botonesAgregarAlCarrito[i];
-    button.addEventListener('click',agregarAlCarritoClicked);
+// actualizar la informacion del carrito
+function updateCartInfo(){
+    let cartInfo = findCartInfo();
+    cartCountInfo.textContent = cartInfo.productCount;
+    cartTotalValue.textContent = cartInfo.total;
 }
 
-/* funcionalidad del boton pagar */
-document.getElementsByClassName('btn-pagar')[0].addEventListener('click', pagarClicked);
+// carga de los productos desde un json mediante metodo fetch
+function loadJSON(){
+    fetch('products.json')
+    .then(response => response.json())
+    .then(data =>{
+        let html = '';
+        data.forEach(product => {
+            html += `
+                <div class = "product-item">
+                    <div class = "product-img">
+                        <img src = "${product.imagen}" alt = "product image">
+                        <button type = "button" class = "add-to-cart-btn">
+                            <i class = "fas fa-shopping-cart"></i>Agregar al Carrito
+                        </button>
+                    </div>
 
+                    <div class = "product-content">
+                        <h3 class = "product-name">${product.descripcion}</h3>
+                        <span class = "product-category">${product.tipo}</span>
+                        <p class = "product-price">$${product.precio}</p>
+                    </div>
+                </div>
+            `;
+        });
+        productList.innerHTML = html;
+    })
+    .catch(error => {
+        Swal.fire({  //implementacion de libreria sweetAlert
+            title: "Advertencia",
+            text: "Por favor, usar live server :)",
+            icon: "warning",
+            confirmButtonText: "OK",
+        })
+        // usar live server o host.
+    })
 }
 
-/* elimino items seleccionados del carrito */
-function eliminarItemCarrito(event){
-    var buttonClicked = event.target;
-    buttonClicked.parentElement.remove();
-    /* se actualiza el total cuando elimina el item */
-    actualizarTotalCarrito();
 
-    /* funcion para ver si hay elementos en el carrito una vez que elimina el item, si no hay nada que ocualte el carro*/
-    ocultarCarrito();
-}
-
-/* actualiza el total del carrito  */
-function actualizarTotalCarrito();{
-     /* seleccion del contenedor del carrito */
-     var carritoContenedor = document.getElementsByClassName('carrito')[0];
-     var carritoItems = carritoContenedor.getElementsByClassName('carrito-item');
-     var total = 0;
-
-     /* recorro cada elemento del carrito para actualizar total */
-     for (var i=0; i<carritoItems.length; i++){
-        var item = carritoItems [i];
-        var precioElemento = item.getElementsByClassName('carrito-item-precio')[0];
-        console.log(precioElemento);
-        /* quitamos el simbolo de pesos y los milesimos  */
-        var precio = parseFloat(precioElemento.innerText.replace('$','').replace('.', ''));
-        console.log(precio);
-        var cantidadItem = item.getElementsByClassName('carrito-item-cantidad')[0];
-        var cantidad = cantidadItem.value;
-        console.log(cantidad);
-        total = total + (precio * cantidad);
-    }
-    total =Math.round(total*100)/100;
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
-}
-function ocultarCarrito(){
-    var carritoItems = document.getElementsByClassName('carrito-items')[0];
-    if (carritoItems.childElementCount==0){
-        var carrito = document.getElementsByClassName('carrito')[0];
-        carrito.Style.marginRight = '-100%';
-        carrito.Style.opacity = '0';
-        carritoVisible = false;
-
-        /* maximizar el contenedor de elementos */
-        var items = document.getElementById('cards')[0];
-        items.style.width = '100%'
-
+// comprar producto
+function purchaseProduct(e){
+    if(e.target.classList.contains('add-to-cart-btn')){
+        let product = e.target.parentElement.parentElement;
+        getProductInfo(product);
     }
 }
 
-/* aumento de a uno la cantidad del elemento seleccionado */
-function sumarCantidad(event){
-    var buttonClicked = event.target;
-    var selector = buttonClicked.parentElement;
-    var cantidadActual = selector.getElementsByClassName('carrito-item-cantidad')[0].value;
-    console.log(cantidadActual);
-    cantidadActual++;
-    selector.getElementsByClassName('carrito-item-cantidad')[0].value = cantidadActual;
-    /* actualizo total */
-    actualizarTotalCarrito();
-}
-
-function restarCantidad(event){
-    var buttonClicked = event.target;
-    var selector = buttonClicked.parentElement;
-    var cantidadActual = selector.getElementsByClassName('carrito-item-cantidad')[0].value;
-    console.log(cantidadActual);
-    cantidadActual--;
-    /* debo ver que no sea menor que uno */
-    if(cantidadActual>=1){
-        selector.getElementsByClassName('carrito-item-cantidad')[0].value = cantidadActual;
-        /* actualizo total */
-        actualizarTotalCarrito();
+// obtener información del producto después de hacer clic en el botón [Agregar al carrito]
+function getProductInfo(product){
+    let productInfo = {
+        id: cartItemID,
+        imgSrc: product.querySelector('.product-img img').src,
+        name: product.querySelector('.product-name').textContent,
+        category: product.querySelector('.product-category').textContent,
+        price: product.querySelector('.product-price').textContent
     }
-}
-function agregarAlCarritoClicked(event){
-    var button = event.target;
-    var item = button.parentElement;
-    var titulo = document.getElementsByClassName('titulo')[0].innerText;
-    console.log(titulo);
-    var precio = document.getElementsByClassName('precio')[0].innerText;
-    var imagenSrc = document.getElementsByClassName('card-img-top');
-    console.log(imagenSrc);
-
-    /* funcion para agregar al carrito mandando por parametro los valores*/
-    agregarItemAlCarrito(titulo, precio, imagenSrc);
-
-    /* al agregar por primera vez un item tiene que aparecer el carrito */
-    hacerVisibleCarrito();
+    cartItemID++;
+    addToCartList(productInfo);
+    saveProductInStorage(productInfo);
 }
 
-function agregarItemAlCarrito(titulo, precio, imagenSrc){
-    var item = document.createElement('div');
-    item.classList.add = 'item';
-    var itemsCarrito = document.getElementsByClassName('carrito-items')[0];
-
-    /* hay que verificar que el item que ingresa no se encuentre ya en el carrito */
-    var  nombresItemsCarrito = itemsCarrito.getElementsByClassName('carrito-item-titulo');
-    for(var i=0; i<nombresItemsCarrito.length; i++){
-        if(nombresItemsCarrito[i],innerText==titulo){
-            alert("El item ya se encuentra en el carrito");
-            return;
-        }
-    }
-
-    var itemCarritoContenido = `
-    <div class="carrito-item">
-    <img src="${imagenSrc}" width="80px" alt="">
-    <div class="carrito-item-detalles">
-        <span class="carrito-item-titulo">${titulo}</span>
-        <div class="selector-cantidad">
-            <i class="fa-solid fa-minus restar-cantidad"></i>
-            <input type="text" value="1" class="carrito-item-cantidad" disabled>
-            <i class="fa-solid fa-plus sumar-cantidad"></i>
+// agregar el producto seleccionado a la lista del carrito
+function addToCartList(product){
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item');
+    cartItem.setAttribute('data-id', `${product.id}`);
+    cartItem.innerHTML = `
+        <img src = "${product.imgSrc}" alt = "product image">
+        <div class = "cart-item-info">
+            <h3 class = "cart-item-name">${product.name}</h3>
+            <span class = "cart-item-category">${product.category}</span>
+            <span class = "cart-item-price">${product.price}</span>
         </div>
-        <span class="carrito-item-precio">${precio}</span>
-    </div>
-    <span class="btn-eliminar">
-        <i class="fa-solid fa-trash"></i>
-    </span>
-    </div>
-    `
 
-    item.innerHTML = itemCarritoContenido;
-    itemsCarrito.append(item);
-
-    /* funcionalidad para eliminar nuevo item */
-    item.getElementsByClassName('btn-eliminar')[0].addEventListener('click', eliminarItemCarrito);
-
-    /* funcionalidad de sumar del nuevo item */
-    var botonSumarCantidad = item.getElementsByClassName('sumar-cantidad')[0];
-    botonSumarCantidad.addEventListener('click', sumarCantidad);
-
-    /* funcionalidad de restar del nuevo item */
-    var botonRestarCantidad = item.getElementsByClassName('restar-cantidad')[0];
-    botonRestarCantidad.addEventListener('click', restarCantidad);
+        <button type = "button" class = "cart-item-del-btn">
+            <i class = "fas fa-times"></i>
+        </button>
+    `;
+    cartList.appendChild(cartItem);
 }
 
-function pagarClicked(event){
-    alert("Gracias por tu compra");
-    /* Se vacia el carrito luego de pagar */
-    var carritoItems = document.getElementsByClassName('carrito-items')[0];
-    while(carritoItems.hasChildNodes()){
-        carritoItems.removeChild(carritoItems.firstChild);
+// guarda el producto en el local storage
+function saveProductInStorage(item){
+    let products = getProductFromStorage();
+    products.push(item);
+    localStorage.setItem('products', JSON.stringify(products));
+    updateCartInfo();
+}
+
+// obtener toda la información de los productos si hay alguno en el local storage
+function getProductFromStorage(){
+    return localStorage.getItem('products') ? JSON.parse(localStorage.getItem('products')) : [];
+    // devuelve un array vacío si no hay información del producto
+}
+
+// carga el carrito
+function loadCart(){
+    let products = getProductFromStorage();
+    if(products.length < 1){
+        cartItemID = 1; // si no hay ningún producto en el local storage
+    } else {
+        cartItemID = products[products.length - 1].id;
+        cartItemID++;
+        // else: obtiene la identificación del último producto y aumente en 1
     }
-    actualizarTotalCarrito();
-    /* como ya no hay nada en el carrito lo ocultamos */
-    ocultarCarrito();
+    products.forEach(product => addToCartList(product));
+
+    // calcula y actualiza la UI del carrito 
+    updateCartInfo();
 }
 
-function hacerVisibleCarrito(){
-    carritoVisible = true;
-    var carrito = document.getElementsByClassName('carrito')[0];
-    carrito.style.marginRight = '0';
-    carrito.style.opacity = '1';
+// calcula el precio/info total del carrito
+function findCartInfo(){
+    let products = getProductFromStorage();
+    let total = products.reduce((acc, product) => {
+        let price = parseFloat(product.price.substr(1)); // remueve el signo dolar 
+        return acc += price;
+    }, 0); // suma todos los precios
 
-    var items = document.getElementsByClassName('contenedor-items')[0];
-    items.style.width = '60%';
+    return{
+        total: total.toFixed(2),
+        productCount: products.length
+    }
+}
+
+// eliminar el producto de la lista del carrito y del local storage
+function deleteProduct(e){
+    let cartItem;
+    if(e.target.tagName === "BUTTON"){
+        cartItem = e.target.parentElement;
+        cartItem.remove(); // elimina del DOM
+    } else if(e.target.tagName === "I"){
+        cartItem = e.target.parentElement.parentElement;
+        cartItem.remove(); // elimina del DOM
+    }
+
+    let products = getProductFromStorage();
+    let updatedProducts = products.filter(product => {
+        return product.id !== parseInt(cartItem.dataset.id);
+    });
+    localStorage.setItem('products', JSON.stringify(updatedProducts)); // updating the product list after the deletion
+    updateCartInfo();
 }
