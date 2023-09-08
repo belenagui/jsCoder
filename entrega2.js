@@ -160,7 +160,7 @@ function loadCart() {
 function findCartInfo() {
     let products = getProductFromStorage();
     let total = products.reduce((acc, product) => {
-        let price = parseFloat(product.price.substr(1)); // remueve el signo dolar 
+        let price = parseFloat(product.price.substr(1)); // remueve el signo $ 
         return acc += price;
     }, 0); // suma todos los precios
 

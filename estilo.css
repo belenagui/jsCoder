@@ -119,8 +119,14 @@ header .container{
     height: 204px; 
 }
 /*  */
+.navbar-collapse{
+    background-color: #23272a;
+    width: 25%;
+}
 .navbar-collapse ul{
     list-style-type: none;
+    text-align: center;
+    margin: 25px;
 }
 .navbar-collapse li{
     margin: 0.7rem 0;
@@ -130,6 +136,7 @@ header .container{
 .navbar-collapse a{
     font-size: 1.15rem;
     opacity: 0.7;
+    color: #e8dce3;
 }
 .cart{
     justify-self: flex-end;
@@ -400,7 +407,7 @@ footer{
     background-color: var(--baltic-sea);
 }
 .footer-banner{
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(images/footer-banner.jpg) center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/entrenamiento.jpg) center/cover no-repeat;
     padding: 3rem 0;
 }
 .footer-banner{
@@ -428,7 +435,7 @@ footer > .container{
     padding: 3rem 0;
 }
 .social-icons a{
-    color: var(--granite-gray);
+    color: (--granvarite-gray);
     margin: 0 0.5rem;
     display: flex;
     align-items: center;
