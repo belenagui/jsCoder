@@ -56,7 +56,7 @@ function loadJSON(){
                     </div>
 
                     <div class = "product-content">
-                        <h3 class = "product-name">${product.descripcion}</h3>
+                        <h3 class = "product-name">${product.marca}</h3>
                         <span class = "product-category">${product.tipo}</span>
                         <p class = "product-price">$${product.precio}</p>
                     </div>
@@ -171,7 +171,28 @@ function deleteProduct(e){
         cartItem.remove(); // elimina del DOM
     } else if(e.target.tagName === "I"){
         cartItem = e.target.parentElement.parentElement;
-        cartItem.remove(); // elimina del DOM
+    
+        if (cartItem) {
+            // Usar SweetAlert para confirmar la eliminación
+            Swal.fire({
+                title: "¿Desea eliminar del carrito?",
+                text: "Esta acción no se puede deshacer",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    cartItem.remove(); // Elimina del DOM
+    
+                    // Aquí también puedes agregar código para eliminar el producto del almacenamiento local (localStorage), si es necesario.
+    
+                    Swal.fire("Eliminado", "El producto ha sido eliminado del carrito.", "success");
+                }
+            });
+        }
     }
 
     let products = getProductFromStorage();
