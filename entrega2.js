@@ -10,7 +10,7 @@ let cartItemID = 1;
 eventListeners();
 
 // todos los eventos listeners
-function eventListeners(){
+function eventListeners() {
     window.addEventListener('DOMContentLoaded', () => {
         loadJSON();
         loadCart();
@@ -33,20 +33,20 @@ function eventListeners(){
 }
 
 // actualizar la informacion del carrito
-function updateCartInfo(){
+function updateCartInfo() {
     let cartInfo = findCartInfo();
     cartCountInfo.textContent = cartInfo.productCount;
     cartTotalValue.textContent = cartInfo.total;
 }
 
 // carga de los productos desde un json mediante metodo fetch
-function loadJSON(){
+function loadJSON() {
     fetch('products.json')
-    .then(response => response.json())
-    .then(data =>{
-        let html = '';
-        data.forEach(product => {
-            html += `
+        .then(response => response.json())
+        .then(data => {
+            let html = '';
+            data.forEach(product => {
+                html += `
                 <div class = "product-item">
                     <div class = "product-img">
                         <img src = "${product.imagen}" alt = "product image">
@@ -62,31 +62,38 @@ function loadJSON(){
                     </div>
                 </div>
             `;
-        });
-        productList.innerHTML = html;
-    })
-    .catch(error => {
-        Swal.fire({  //implementacion de libreria sweetAlert
-            title: "Advertencia",
-            text: "Por favor, usar live server :)",
-            icon: "warning",
-            confirmButtonText: "OK",
+            });
+            productList.innerHTML = html;
         })
-        // usar live server o host.
-    })
+        .catch(error => {
+            Swal.fire({  //implementacion de libreria sweetAlert
+                title: "Advertencia",
+                text: "Por favor, usar live server :)",
+                icon: "warning",
+                confirmButtonText: "OK",
+            })
+            // usar live server o host.
+        })
 }
 
 
 // comprar producto
-function purchaseProduct(e){
-    if(e.target.classList.contains('add-to-cart-btn')){
+function purchaseProduct(e) {
+    if (e.target.classList.contains('add-to-cart-btn')) {
         let product = e.target.parentElement.parentElement;
         getProductInfo(product);
+        // Mostrar SweetAlert cuando se agrega un producto al carrito
+        Swal.fire(
+            "Producto agregado al carrito",
+            "",
+            "success"
+        );
+
     }
 }
 
 // obtener información del producto después de hacer clic en el botón [Agregar al carrito]
-function getProductInfo(product){
+function getProductInfo(product) {
     let productInfo = {
         id: cartItemID,
         imgSrc: product.querySelector('.product-img img').src,
@@ -100,7 +107,7 @@ function getProductInfo(product){
 }
 
 // agregar el producto seleccionado a la lista del carrito
-function addToCartList(product){
+function addToCartList(product) {
     const cartItem = document.createElement('div');
     cartItem.classList.add('cart-item');
     cartItem.setAttribute('data-id', `${product.id}`);
@@ -120,7 +127,7 @@ function addToCartList(product){
 }
 
 // guarda el producto en el local storage
-function saveProductInStorage(item){
+function saveProductInStorage(item) {
     let products = getProductFromStorage();
     products.push(item);
     localStorage.setItem('products', JSON.stringify(products));
@@ -128,15 +135,15 @@ function saveProductInStorage(item){
 }
 
 // obtener toda la información de los productos si hay alguno en el local storage
-function getProductFromStorage(){
+function getProductFromStorage() {
     return localStorage.getItem('products') ? JSON.parse(localStorage.getItem('products')) : [];
     // devuelve un array vacío si no hay información del producto
 }
 
 // carga el carrito
-function loadCart(){
+function loadCart() {
     let products = getProductFromStorage();
-    if(products.length < 1){
+    if (products.length < 1) {
         cartItemID = 1; // si no hay ningún producto en el local storage
     } else {
         cartItemID = products[products.length - 1].id;
@@ -145,35 +152,35 @@ function loadCart(){
     }
     products.forEach(product => addToCartList(product));
 
-    // calcula y actualiza la UI del carrito 
+    // calcula y actualiza la UI del carrito
     updateCartInfo();
 }
 
 // calcula el precio/info total del carrito
-function findCartInfo(){
+function findCartInfo() {
     let products = getProductFromStorage();
     let total = products.reduce((acc, product) => {
         let price = parseFloat(product.price.substr(1)); // remueve el signo dolar 
         return acc += price;
     }, 0); // suma todos los precios
 
-    return{
+    return {
         total: total.toFixed(2),
         productCount: products.length
     }
 }
 
 // eliminar el producto de la lista del carrito y del local storage
-function deleteProduct(e){
+function deleteProduct(e) {
     let cartItem;
-    if(e.target.tagName === "BUTTON"){
+    if (e.target.tagName === "BUTTON") {
         cartItem = e.target.parentElement;
         cartItem.remove(); // elimina del DOM
-    } else if(e.target.tagName === "I"){
+    } else if (e.target.tagName === "I") {
         cartItem = e.target.parentElement.parentElement;
-    
+
         if (cartItem) {
-            // Usar SweetAlert para confirmar la eliminación
+            // Uso SweetAlert para confirmar la eliminación
             Swal.fire({
                 title: "¿Desea eliminar del carrito?",
                 text: "Esta acción no se puede deshacer",
@@ -186,9 +193,7 @@ function deleteProduct(e){
             }).then((result) => {
                 if (result.isConfirmed) {
                     cartItem.remove(); // Elimina del DOM
-    
-                    // Aquí también puedes agregar código para eliminar el producto del almacenamiento local (localStorage), si es necesario.
-    
+
                     Swal.fire("Eliminado", "El producto ha sido eliminado del carrito.", "success");
                 }
             });
@@ -199,6 +204,6 @@ function deleteProduct(e){
     let updatedProducts = products.filter(product => {
         return product.id !== parseInt(cartItem.dataset.id);
     });
-    localStorage.setItem('products', JSON.stringify(updatedProducts)); // updating the product list after the deletion
+    localStorage.setItem('products', JSON.stringify(updatedProducts)); // se actualiza despues del delete
     updateCartInfo();
 }
