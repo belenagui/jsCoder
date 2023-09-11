@@ -116,7 +116,7 @@ header .container{
 }
 /* clase relacionada con js */
 .show-navbar{
-    height: 204px; 
+    height: 204px;
 }
 /*  */
 .navbar-collapse{
@@ -299,11 +299,18 @@ header .container{
     color: #fff;
 }
 
+.linea {
+    border: none;
+    border-top: 2px solid #c3abd3;
+    margin: 20px 0;
+}
+
 /* productos */
-.products{
+.products, .formulario{
     padding: 6rem 0;
 }
-.products h2{
+
+.products h2, .container h2{
     text-align: center;
     font-size: 2.2rem;
     text-transform: uppercase;
@@ -416,6 +423,7 @@ footer{
 }
 .footer-banner h2{
     font-size: 2.4rem;
+    color: #e8dce3;
 }
 .footer-banner .btn{
     margin-top: 2rem;
@@ -452,11 +460,6 @@ footer > .container{
 .social-icons a:hover{
     color: #fff;
 }
-
-
-
-
-
 
 /* Media Queries */
 
@@ -529,5 +532,51 @@ footer > .container{
     .product-list{
         grid-template-columns: repeat(4, 1fr);
     }
+}
+
+/* Estilos para el formulario */
+#subscription-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #552674;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el mensaje de respuesta */
+#mensaje {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
 }
 

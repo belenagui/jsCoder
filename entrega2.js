@@ -207,3 +207,38 @@ function deleteProduct(e) {
     localStorage.setItem('products', JSON.stringify(updatedProducts)); // se actualiza despues del delete
     updateCartInfo();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("subscription-form");
+    const mensaje = document.getElementById("mensaje");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById("nombre").value;
+        const correo = document.getElementById("correo").value;
+
+        if (nombre === "" || correo === "") {
+            // Utiliza SweetAlert para mostrar el mensaje de error
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Por favor, completa todos los campos.',
+            });
+        } else {
+            // Guarda los datos en el localStorage
+            localStorage.setItem("nombre", nombre);
+            localStorage.setItem("correo", correo);
+
+            // Utiliza SweetAlert para mostrar el mensaje de éxito
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: '¡Gracias por suscribirte!',
+            });
+
+            // Limpia los campos del formulario después de enviarlo.
+            form.reset();
+        }
+    });
+});
